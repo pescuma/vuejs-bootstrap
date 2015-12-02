@@ -4,7 +4,7 @@
 			<label for="{{ id }}">{{ label }}</label>
 			<select v-el:select id="{{ id }}" class="form-control" multiple="{{ multiple }}">
 				<option v-if="!multiple && allowClear"></option>
-				<option v-for="o in options" value="{{ o }}">{{ format ? format(o) : o }}</option>
+				<option v-for="o in options" value="{{ o }}">{{ render ? render(o) : o }}</option>
 			</select>
 		</div>
 	</b-col-sm>
@@ -35,10 +35,10 @@
 				type: Array,
 				required: true
 			},
-			selected: {
+			model: {
 				twoWay: true
 			},
-			format: Function
+			render: Function
 		},
 		attached: function () {
 			var self = this;
@@ -50,13 +50,13 @@
 				allowClear: this.allowClear
 			});
 
-			s.val(self.selected).trigger('change');
+			s.val(self.model).trigger('change');
 
 			s.on('change', function () {
 				var candidate = $(this).val();
 
-				if (!self._selectedEquals(self.selected, candidate))
-					self.selected = self._fixSelected(candidate);
+				if (!self._selectedEquals(self.model, candidate))
+					self.model = self._fixSelected(candidate);
 
 				return;
 			});
@@ -67,7 +67,7 @@
 					.select2('destroy');
 		},
 		watch: {
-			'selected': function (val, oldVal) {
+			'model': function (val, oldVal) {
 				var s = $(this.$els.select);
 
 				var current = s.val();
