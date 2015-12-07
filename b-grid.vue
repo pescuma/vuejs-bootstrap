@@ -48,9 +48,9 @@
 		</table>
 		<nav v-if="pagingItems">
 			<ul class="pagination" style="margin-top: 0">
-				<li :class="{ disabled: pageIndex == 0 }"><a @click="pageIndex = Math.max(pageIndex - 1, 0)">&laquo;</a></li>
+				<li :class="{ disabled: pageIndex == 0 }"><a @click="pageIndex = 0">&laquo;</a></li>
 				<li v-for="i in pagingItems" :class="{ active: pageIndex == i.val }"><a @click="pageIndex = i.val">{{ i.name }}</a></li>
-				<li :class="{ disabled: pageIndex == lastPage }"><a @click="pageIndex = Math.min(pageIndex + 1, lastPage)">&raquo;</a></li>
+				<li :class="{ disabled: pageIndex == lastPage }"><a @click="pageIndex = lastPage">&raquo;</a></li>
 			</ul>
 		</nav>
 		<slot></slot>
@@ -94,12 +94,7 @@
 
 	module.exports = {
 		tag: 'b-grid',
-		mixins: [require('./mixin-colspan.js')],
-		data: function () {
-			return {
-				internal_columns: []
-			};
-		},
+		mixins: [require('./mixin-colspan.js'), require('./mixin-columns.js')],
 		props: {
 			model: Array,
 			pageSize: {
@@ -175,69 +170,11 @@
 
 				return result;
 			},
-			headers: function () {
-				var result = [];
-
-				var maxDepth = 1;
-				for (var i = 0; i < this.internal_columns.length; ++i) {
-					var col = this.internal_columns[i];
-					if (Type.is(col.header, String)) {
-						maxDepth = Math.max(maxDepth, col.header.length);
-					}
-				}
-
-				for (var i = 0; i < this.internal_columns.length; ++i) {
-					var col = this.internal_columns[i];
-
-					var titles = col.header;
-					if (!Type.is(titles, Array)) {
-						titles = [titles];
-					}
-
-					var insideNew = false;
-
-					for (var j = 0; j < titles.length; ++j) {
-						var title = titles[j];
-
-						if (result.length <= j) {
-							result[j] = [];
-						}
-
-						var headerLine = result[j];
-						var header = headerLine[headerLine.length - 1] || {};
-
-						if (insideNew || header.title !== title) {
-							header = {
-								rowspan: 1,
-								colspan: 0,
-								title: title
-							};
-
-							headerLine.push(header);
-
-							insideNew = true;
-						}
-
-						header.colspan++;
-
-						if (j == titles.length - 1) {
-							if (col.width) {
-								header.width = col.width;
-							}
-							header.rowspan = maxDepth - j;
-							header.order = true;
-							header.index = i;
-						}
-					}
-				}
-
-				return result;
-			},
 			sortedData: function () {
 				var result = this.model;
 
-				if (Type.is(this.orderBy, Number) && this.internal_columns.length) {
-					var sortCol = this.internal_columns[this.orderBy];
+				if (Type.is(this.orderBy, Number) && this.columns.length) {
+					var sortCol = this.columns[this.orderBy];
 					if (!sortCol)
 						return result;
 
@@ -294,8 +231,8 @@
 				}
 
 				var renders = [];
-				for (var j = 0; j < this.internal_columns.length; ++j) {
-					var col = this.internal_columns[j];
+				for (var j = 0; j < this.columns.length; ++j) {
+					var col = this.columns[j];
 					var render;
 
 					if (Type.is(col.render, String)) {
@@ -318,10 +255,10 @@
 					var line = [];
 					var dataLine = data[i];
 
-					for (var j = 0; j < this.internal_columns.length; ++j) {
+					for (var j = 0; j < this.columns.length; ++j) {
 						line.push({
 							value: renders[j](dataLine),
-							class: this.internal_columns[j].class
+							class: this.columns[j].class
 						});
 					}
 
@@ -370,9 +307,6 @@
 			}
 		},
 		methods: {
-			_registerColumn: function (col) {
-				this.internal_columns.push(col);
-			},
 			_orderClass: function (th) {
 				return {
 					'order': th.order,
@@ -407,7 +341,6 @@
 			$(this.$els.table)
 					.off('mouseenter', 'th,td', _addTitleToWrapedElement);
 		}
-	}
-	;
+	};
 
 </script>

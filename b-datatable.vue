@@ -2,7 +2,7 @@
 	table {
 		table-layout: fixed;
 	}
-	
+
 	th {
 		text-align: center;
 		vertical-align: top !important;
@@ -10,7 +10,7 @@
 		overflow: hidden;
 		text-overflow: ellipsis;
 	}
-	
+
 	td {
 		white-space: nowrap;
 		overflow: hidden;
@@ -32,112 +32,28 @@
 </template>
 
 <script>
-	
+
 	var Vue = require('vue')
-	
+	var Type = require('type-of-is');
+
 	module.exports = {
 		tag: 'b-datatable',
-		mixins: [require('./mixin-colspan.js')],
-		data: function () {
-			return {
-				headers: []
-			};
-		},
+		mixins: [require('./mixin-colspan.js'), require('./mixin-columns.js')],
 		props: {
 			model: Array
 		},
 		methods: {
-			_registerColumn: function (col) {
-				if (!this.internal_columns) {
-					this.internal_columns = [];
-				}
-				
-				this.internal_columns.push(col);
-			},
-			_computeHeaders: function () {
-				if (!this.internal_columns)
-					this.internal_columns = [];
-				
-				var result = [];
-				
-				var maxDepth = 1;
-				for (var i = 0; i < this.internal_columns.length; ++i) {
-					var col = this.internal_columns[i];
-					if (typeof col.header != 'string')
-						maxDepth = Math.max(maxDepth, col.header.length);
-				}
-				
-				for (var i = 0; i < this.internal_columns.length; ++i) {
-					var col = this.internal_columns[i];
-					
-					var titles = col.header;
-					if (typeof titles == 'string')
-						titles = [titles];
-					
-					var insideNew = false;
-					
-					for (var j = 0; j < titles.length; ++j) {
-						var title = titles[j];
-						
-						if (result.length <= j)
-							result[j] = [];
-						
-						var headerLine = result[j];
-						var header = headerLine[headerLine.length - 1] || {};
-						
-						if (insideNew || header.title !== title) {
-							header = {
-								rowspan: 1,
-								colspan: 0,
-								title: title
-							};
-							
-							headerLine.push(header);
-							
-							insideNew = true;
-						}
-						
-						header.colspan++;
-						
-						if (j == titles.length - 1) {
-							if (col.width)
-								header.width = col.width;
-							header.rowspan = maxDepth - j;
-						}
-					}
-				}
-				
-				return result;
-			},
-			_createColumnConfig: function (col) {
-				var result = {
-					data: col.field || null
-				};
-				
-				if (col.class)
-					result.className = col.class;
-				
-				if (col.render) {
-					result.render = function (data, type, row) {
-						if (type === 'display')
-							return col.render(row); else
-							return row.name;
-					};
-				}
-				
-				return result;
-			},
 			_updateDataTable: function () {
 				var self = this;
-				
+
 				Vue.nextTick(function () {
 					var cols = [];
-					for (var i = 0; i < self.internal_columns.length; ++i) {
-						var col = self.internal_columns[i];
-						
+					for (var i = 0; i < self.columns.length; ++i) {
+						var col = self.columns[i];
+
 						cols.push(self._createColumnConfig(col));
 					}
-					
+
 					self.internal_datatable = $(self.$els.table)
 							.DataTable({
 								destroy: true,
@@ -149,9 +65,35 @@
 							});
 				})
 			},
+			_createColumnConfig: function (col) {
+				var result = {};
+
+				if (Type.is(col.render, String)) {
+					result.data = col.render;
+					
+				} else if (Type.is(col.render, Function)) {
+					result.data = null;
+					result.render = function (data, type, row) {
+						if (type === 'display')
+							return col.render(row);
+						else
+							return row.name;
+					};
+					
+				} else {
+					throw 'Column does not have render field';
+				}
+				
+				if (col.width)
+					result.width = col.width;
+
+				if (col.class)
+					result.className = col.class;
+
+				return result;
+			}
 		},
 		attached: function () {
-			this.headers = this._computeHeaders();
 			this._updateDataTable();
 		},
 		detached: function () {
