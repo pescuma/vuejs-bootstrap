@@ -11,7 +11,7 @@ module.exports = {
 			}
 		},
 		label: {
-			required: true
+			default: ''
 		},
 		enabled: {
 			default: true

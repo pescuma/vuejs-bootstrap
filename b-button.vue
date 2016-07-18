@@ -1,11 +1,14 @@
 <template>
-	<button type="button" :id="id" :class="classes" :disabled="!enabled">{{ label }}</button>
+	<button type="button" :id="id" :class="classes" :disabled="!enabled">
+		{{ label }}
+		<slot></slot>
+	</button>
 </template>
 
 <script>
-	
+
 	var utils = require('./utils.js');
-	
+
 	module.exports = {
 		tag: 'b-button',
 		mixins: [require('./mixin-colspan.js'), require('./mixin-input.js')],
@@ -30,9 +33,9 @@
 					'btn': true,
 					'btn-block': utils.isTrue(this.block)
 				};
-				
+
 				result['btn-' + this.type] = true;
-				
+
 				switch (this.size) {
 					case 'large':
 					case 'lg':
@@ -47,7 +50,7 @@
 						result['btn-xs'] = true;
 						break;
 				}
-				
+
 				return result;
 			}
 		}
