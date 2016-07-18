@@ -4,6 +4,8 @@
 
 <script>
 	
+	var utils = require('./utils.js');
+	
 	module.exports = {
 		tag: 'b-button',
 		mixins: [require('./mixin-colspan.js'), require('./mixin-input.js')],
@@ -20,15 +22,13 @@
 					return 'default';
 				}
 			},
-			block: {
-				type: Boolean
-			}
+			block: {}
 		},
 		computed: {
 			classes: function () {
 				var result = {
 					'btn': true,
-					'btn-block': this.block
+					'btn-block': utils.isTrue(this.block)
 				};
 				
 				result['btn-' + this.type] = true;

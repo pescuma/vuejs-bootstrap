@@ -2,8 +2,8 @@
 	<b-col-sm :cols="colspan">
 		<div class="form-group">
 			<label :for="id">{{ label }}</label>
-			<select v-el:select :id="id" class="form-control" :multiple="multiple" :disabled="!enabled" :readonly="readonly">
-				<option v-if="!multiple && allowClear"></option>
+			<select v-el:select :id="id" class="form-control" :multiple="isMultiple" :disabled="isDisabled" :readonly="isReadonly">
+				<option v-if="!isMultiple && isAllowClear"></option>
 				<option v-for="o in options" value="{{ o }}">{{ render ? render(o) : o }}</option>
 			</select>
 		</div>
@@ -12,13 +12,15 @@
 
 <script>
 	
+	var utils = require('./utils.js');
+	
 	module.exports = {
 		tag: 'b-select2',
 		mixins: [require('./mixin-colspan.js'), require('./mixin-input.js')],
 		props: {
-			multiple: Boolean,
-			allowClear: Boolean,
-			emptyText: String,
+			multiple: {},
+			allowClear: {},
+			emptyText: {},
 			options: {
 				type: Array,
 				required: true
@@ -28,6 +30,14 @@
 			},
 			render: Function
 		},
+		computed: {
+			isMultiple: function () {
+				return utils.isTrue(this.multiple);
+			},
+			isAllowClear: function () {
+				return utils.isTrue(this.allowClear);
+			},
+		},
 		attached: function () {
 			var self = this;
 			
@@ -35,7 +45,7 @@
 			
 			s.select2({
 				placeholder: this.emptyText,
-				allowClear: this.allowClear
+				allowClear: this.isAllowClear
 			});
 			
 			s.val(self.model).trigger('change');
@@ -68,11 +78,11 @@
 		},
 		methods: {
 			_fixSelected: function (s) {
-				if (this.multiple) {
+				if (this.isMultiple) {
 					if (!s)
 						return [];
 				} else {
-					if (this.allowClear)
+					if (this.isAllowClear)
 						if (!s)
 							return null;
 				}
@@ -83,7 +93,7 @@
 				a = this._fixSelected(a);
 				b = this._fixSelected(b);
 				
-				if (this.multiple) {
+				if (this.isMultiple) {
 					if (a.length != b.length)
 						return false;
 					

@@ -1,4 +1,4 @@
-var Type = require('type-of-is');
+var utils = require('./utils.js');
 
 module.exports = {
 	data: function () {
@@ -13,7 +13,7 @@ module.exports = {
 			var maxDepth = 1;
 			for (var i = 0; i < this.columns.length; ++i) {
 				var col = this.columns[i];
-				if (Type.is(col.header, Array)) {
+				if (utils.is(col.header, Array)) {
 					maxDepth = Math.max(maxDepth, col.header.length);
 				}
 			}
@@ -22,7 +22,7 @@ module.exports = {
 				var col = this.columns[i];
 
 				var titles = col.header;
-				if (!Type.is(titles, Array)) {
+				if (!utils.is(titles, Array)) {
 					titles = [titles];
 				}
 
@@ -42,7 +42,9 @@ module.exports = {
 						header = {
 							rowspan: 1,
 							colspan: 0,
-							title: title
+							title: title,
+							class: col.classHeader,
+							order: false
 						};
 
 						headerLine.push(header);
@@ -57,7 +59,7 @@ module.exports = {
 							header.width = col.width;
 						}
 						header.rowspan = maxDepth - j;
-						header.order = true;
+						header.order = !utils.isFalse(col.order);
 						header.index = i;
 					}
 				}
@@ -66,14 +68,14 @@ module.exports = {
 			return result;
 		}
 	},
-	ready: function () {
+	compiled: function () {
 		for (var i = 0; i < this.$children.length; ++i) {
 			var child = this.$children[i];
 
 			if (child.$options.tag != 'b-column')
 				continue;
 
-			this.columns.push(child.$data);
+			this.columns.push(child);
 		}
 	}
 };

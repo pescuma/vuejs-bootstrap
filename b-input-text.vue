@@ -2,7 +2,7 @@
 	<b-col-sm :cols="colspan">
 		<div class="form-group">
 			<label :for="id">{{ label }}</label>
-			<input type="text" class="form-control" :id="id" :placeholder="emptyText" :disabled="!enabled" :readonly="readonly" v-model="model">
+			<input type="text" class="form-control" :id="id" :placeholder="emptyText" :disabled="isDisabled" :readonly="isReadonly" v-model="model">
 		</div>
 	</b-col-sm>
 </template>

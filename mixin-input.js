@@ -1,3 +1,5 @@
+var utils = require('./utils.js');
+
 var _nexId = 0;
 
 module.exports = {
@@ -9,21 +11,22 @@ module.exports = {
 			}
 		},
 		label: {
-			type: String,
 			required: true
 		},
 		enabled: {
-			type: Boolean,
-			default: function () {
-				return true;
-			}
+			default: true
 		},
 		readonly: {
-			type: Boolean,
-			default: function () {
-				return false;
-			}
+			default: false
 		}
 	},
+	computed: {
+		isDisabled: function () {
+			return !utils.isTrue(this.enabled);
+		},
+		isReadonly: function () {
+			return utils.isTrue(this.readonly);
+		}
+	}
 };
 
