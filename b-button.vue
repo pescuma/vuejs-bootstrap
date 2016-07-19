@@ -1,5 +1,5 @@
 <template>
-	<button type="button" :id="id" :class="classes" :disabled="!enabled">
+	<button :type="type" id="id" :class="classes" :disabled="isDisabled" :readonly="isReadonly">
 		{{ label }}
 		<slot></slot>
 	</button>
@@ -14,6 +14,12 @@
 		mixins: [require('./mixin-colspan.js'), require('./mixin-input.js')],
 		props: {
 			type: {
+				type: String,
+				default: function () {
+					return 'button';
+				}
+			},
+			style: {
 				type: String,
 				default: function () {
 					return 'default';
@@ -34,7 +40,7 @@
 					'btn-block': utils.isTrue(this.block)
 				};
 
-				result['btn-' + this.type] = true;
+				result['btn-' + this.style] = true;
 
 				switch (this.size) {
 					case 'large':

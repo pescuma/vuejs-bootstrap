@@ -1,21 +1,23 @@
 <template>
 	<b-modal>
-		<b-modal-header>
-			<button type="button" class="close" aria-hidden="true" @click.stop="onCancel">&times;</button>
-			<h4 class="modal-title">{{ title }}</h4>
-		</b-modal-header>
-		<b-modal-body>
-			<slot></slot>
-		</b-modal-body>
-		<b-modal-footer>
-			<b-button :label="labelCancel" @click.stop="onCancel"></b-button>
-			<b-button type="primary" :label="labelSave" @click.stop="onSave"></b-button>
-		</b-modal-footer>
+		<form v-el:form>
+			<b-modal-header>
+				<button type="button" class="close" aria-hidden="true" @click.stop="onCancel">&times;</button>
+				<h4 class="modal-title">{{ title }}</h4>
+			</b-modal-header>
+			<b-modal-body>
+				<slot></slot>
+			</b-modal-body>
+			<b-modal-footer>
+				<b-button :label="labelCancel" @click.stop="onCancel"></b-button>
+				<b-button type="submit" style="primary" :label="labelSave" @click.stop="onSave"></b-button>
+			</b-modal-footer>
+		</form>
 	</b-modal>
 </template>
 
 <script>
-	
+
 	module.exports = {
 		tag: 'b-modal-save',
 		props: {
@@ -36,6 +38,9 @@
 				this.$emit('cancel');
 			},
 			onSave: function () {
+				if (!this.$els.form.checkValidity())
+					return;
+
 				this.$emit('save');
 			},
 		},

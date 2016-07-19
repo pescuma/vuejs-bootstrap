@@ -10,7 +10,7 @@
 </template>
 
 <script>
-	
+
 	module.exports = {
 		tag: 'b-input-checkbox',
 		mixins: [require('./mixin-colspan.js'), require('./mixin-input.js')],

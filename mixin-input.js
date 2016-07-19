@@ -18,6 +18,9 @@ module.exports = {
 		},
 		readonly: {
 			default: false
+		},
+		required: {
+			default: false
 		}
 	},
 	computed: {
@@ -26,6 +29,9 @@ module.exports = {
 		},
 		isReadonly: function () {
 			return utils.isTrue(this.readonly);
+		},
+		isRequired: function () {
+			return !this.isDisabled && !this.isReadonly && utils.isTrue(this.required);
 		}
 	}
 };
