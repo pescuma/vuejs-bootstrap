@@ -7,6 +7,7 @@ Vue.component('b-input-number', require('./b-input-number.vue'));
 Vue.component('b-input-password', require('./b-input-password.vue'));
 Vue.component('b-input-checkbox', require('./b-input-checkbox.vue'));
 Vue.component('b-button', require('./b-button.vue'));
+Vue.component('b-input-button', require('./b-input-button.vue'));
 Vue.component('b-tabs', require('./b-tabs.vue'));
 Vue.component('b-tab', require('./b-tab.vue'));
 Vue.component('b-datatable', require('./b-datatable.vue'));

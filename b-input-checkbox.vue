@@ -1,12 +1,10 @@
 <template>
-	<b-col-sm :cols="colspan">
-		<div class="checkbox">
-			<label>
-				<input type="checkbox" :id="id" :disabled="isDisabled" :readonly="isReadonly" v-model="model">
-				{{ label }}
-			</label>
-		</div>
-	</b-col-sm>
+	<div class="checkbox" :class="colspanClass">
+		<label>
+			<input type="checkbox" :id="id" :disabled="isDisabled" :readonly="isReadonly" v-model="model">
+			{{ label }}
+		</label>
+	</div>
 </template>
 
 <script>

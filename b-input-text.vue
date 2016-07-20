@@ -1,11 +1,9 @@
 <template>
-	<b-col-sm :cols="colspan">
-		<div class="form-group">
-			<label :for="id">{{ label }}</label>
-			<input type="text" class="form-control" :id="id" :placeholder="emptyText" :disabled="isDisabled" :readonly="isReadonly" :required="isRequired"
-				   :maxlength="maxlength" v-model="model">
-		</div>
-	</b-col-sm>
+	<div class="form-group" :class="colspanClass">
+		<label :for="id">{{ label || '&nbsp;' }}</label>
+		<input type="text" class="form-control" :id="id" :placeholder="emptyText" :disabled="isDisabled" :readonly="isReadonly" :required="isRequired"
+			   :maxlength="maxlength" v-model="model">
+	</div>
 </template>
 
 <script>

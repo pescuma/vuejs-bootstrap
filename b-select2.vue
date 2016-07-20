@@ -1,13 +1,11 @@
 <template>
-	<b-col-sm :cols="colspan">
-		<div class="form-group">
-			<label :for="id">{{ label }}</label>
-			<select v-el:select :id="id" class="form-control" :multiple="isMultiple" :disabled="isDisabled" :readonly="isReadonly" :required="isRequired">
-				<option v-if="!isMultiple && isAllowClear"></option>
-				<option v-for="o in options" value="{{ o }}">{{ render ? render(o) : o }}</option>
-			</select>
-		</div>
-	</b-col-sm>
+	<div class="form-group" :class="colspanClass">
+		<label :for="id">{{ label }}</label>
+		<select v-el:select :id="id" class="form-control" :multiple="isMultiple" :disabled="isDisabled" :readonly="isReadonly" :required="isRequired">
+			<option v-if="!isMultiple && isAllowClear"></option>
+			<option v-for="o in options" value="{{ keyFunc(o) }}">{{{ renderFunc(o) }}}</option>
+		</select>
+	</div>
 </template>
 
 <script>
@@ -28,7 +26,8 @@
 			model: {
 				twoWay: true
 			},
-			render: Function
+			render: {},
+			key: {}
 		},
 		computed: {
 			isMultiple: function () {
@@ -37,6 +36,12 @@
 			isAllowClear: function () {
 				return utils.isTrue(this.allowClear);
 			},
+			renderFunc: function () {
+				return utils.createRenderFunction(this.render);
+			},
+			keyFunc: function () {
+				return utils.createRenderFunction(this.key);
+			}
 		},
 		attached: function () {
 			var self = this;
