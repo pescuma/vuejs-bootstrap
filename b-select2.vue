@@ -3,15 +3,15 @@
 		<label :for="id">{{ label }}</label>
 		<select v-el:select :id="id" class="form-control" :multiple="isMultiple" :disabled="isDisabled" :readonly="isReadonly" :required="isRequired">
 			<option v-if="!isMultiple && isAllowClear"></option>
-			<option v-for="o in options" value="{{ keyFunc(o) }}">{{{ renderFunc(o) }}}</option>
+			<option v-for="o in processedOptions" value="{{ o.key }}">{{{ o.render }}}</option>
 		</select>
 	</div>
 </template>
 
 <script>
-
+	
 	var utils = require('./utils.js');
-
+	
 	module.exports = {
 		tag: 'b-select2',
 		mixins: [require('./mixin-colspan.js'), require('./mixin-input.js')],
@@ -30,59 +30,81 @@
 			key: {}
 		},
 		computed: {
-			isMultiple: function () {
+			isMultiple: function() {
 				return utils.isTrue(this.multiple);
 			},
-			isAllowClear: function () {
+			isAllowClear: function() {
 				return utils.isTrue(this.allowClear);
 			},
-			renderFunc: function () {
+			renderFunc: function() {
 				return utils.createRenderFunction(this.render);
 			},
-			keyFunc: function () {
+			keyFunc: function() {
 				return utils.createRenderFunction(this.key);
+			},
+			processedOptions: function() {
+				var result = [];
+				
+				this.options.forEach(o => {
+					result.push({
+						obj: o,
+						key: this.keyFunc(o),
+						render: this.renderFunc(o)
+					});
+				});
+				
+				return result;
 			}
 		},
-		attached: function () {
+		attached: function() {
 			var self = this;
-
+			
 			var s = $(this.$els.select);
-
+			
 			s.select2({
 				placeholder: this.emptyText,
 				allowClear: this.isAllowClear
 			});
-
-			s.val(self.model).trigger('change');
-
-			s.on('change', function () {
+			
+			s.val(this.keyFunc(self.model)).trigger('change');
+			
+			s.on('change', function() {
 				var candidate = $(this).val();
-
-				if (!self._selectedEquals(self.model, candidate))
-					self.model = self._fixSelected(candidate);
-
-				return;
+				var model = self.keyFunc(self.model);
+				
+				if (!self._selectedEquals(model, candidate)) {
+					model = self._fixSelected(candidate);
+					
+					self.processedOptions.forEach(o => {
+						if (o.key === model)
+							self.model = o.obj;
+					});
+				}
 			});
 		},
-		detached: function () {
+		detached: function() {
 			$(this.$els.select)
 				.off()
 				.select2('destroy');
 		},
 		watch: {
-			'model': function (val, oldVal) {
+			'model': function(val, oldVal) {
 				var s = $(this.$els.select);
-
+				
 				var current = s.val();
-
-				if (!this._selectedEquals(val, current))
-					s.val(val).trigger('change');
-
-				return;
+				var model = this.keyFunc(val);
+				
+				if (!this._selectedEquals(model, current))
+					s.val(model).trigger('change');
+			},
+			'options': function(val, oldVal) {
+				var s = $(this.$els.select);
+				
+				s.trigger('change');
 			},
 		},
 		methods: {
-			_fixSelected: function (s) {
+			_fixSelected: function(s) {
 				if (this.isMultiple) {
 					if (!s)
 						return [];
@@ -91,23 +113,23 @@
 						if (!s)
 							return null;
 				}
-
+				
 				return s;
 			},
-			_selectedEquals: function (a, b) {
+			_selectedEquals: function(a, b) {
 				a = this._fixSelected(a);
 				b = this._fixSelected(b);
-
+				
 				if (this.isMultiple) {
 					if (a.length != b.length)
 						return false;
-
+					
 					for (var i = 0; i < a.length; ++i)
 						if (a[i] !== b[i])
 							return false;
-
+					
 					return true;
-
+					
 				} else {
 					return a == b;
 				}

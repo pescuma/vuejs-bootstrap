@@ -3,18 +3,18 @@ var he = require('he');
 var Type = require('type-of-is');
 
 var utils = {
-	htmlEncode: function (txt) {
+	htmlEncode: function(txt) {
 		if (txt === undefined || txt === null)
 			return '';
 		
 		return he.escape(txt.toString());
 	},
 	
-	isTrue: function (v) {
+	isTrue: function(v) {
 		return v === 'true' || v === true;
 	},
 	
-	isFalse: function (v) {
+	isFalse: function(v) {
 		return v === 'false' || v === false;
 	},
 	
@@ -22,18 +22,29 @@ var utils = {
 	
 	getter: expr.getter,
 	
-	createRenderFunction: function (render) {
+	createRenderFunction: function(render) {
 		if (utils.is(render, String)) {
 			var getter = utils.getter(render);
-			return function (obj) {
+			return function(obj) {
+				if (obj == null)
+					return '';
+				
 				return utils.htmlEncode(getter(obj));
 			};
 			
 		} else if (utils.is(render, Function)) {
-			return render;
+			return function(obj) {
+				if (obj == null)
+					return '';
+				
+				return render(obj);
+			};
 			
 		} else {
-			return function (obj) {
+			return function(obj) {
+				if (obj == null)
+					return '';
+				
 				return utils.htmlEncode(obj);
 			};
 		}
