@@ -11,7 +11,7 @@
 
 	module.exports = {
 		tag: 'b-button',
-		mixins: [require('./mixin-colspan.js'), require('./mixin-button')],
+		mixins: [require('./mixin-colspan.js'), require('./mixin-button.js')],
 		props: {
 			enabled: {
 				default: true

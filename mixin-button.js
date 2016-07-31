@@ -18,7 +18,7 @@ module.exports = {
 				return 'button';
 			}
 		},
-		style: {
+		context: {
 			type: String,
 			default: function () {
 				return 'default';
@@ -39,7 +39,7 @@ module.exports = {
 				'btn-block': utils.isTrue(this.block)
 			};
 			
-			result['btn-' + this.style] = true;
+			result['btn-' + this.context] = true;
 			
 			switch (this.size) {
 				case 'large':

@@ -1,5 +1,5 @@
 <template>
-	<b-col-sm :cols="colspan">
+	<div :class="colspanClass">
 		<ul class="nav nav-tabs" style="margin-bottom: 20px">
 			<li v-for="tab in tabs" :class="{ active: tab.active }" @click="tab.active = true">
 				<a>{{ tab.title }}</a>
@@ -9,7 +9,7 @@
 		<div class="tab-content">
 			<slot></slot>
 		</div>
-	</b-col-sm>
+	</div>
 </template>
 
 <script>

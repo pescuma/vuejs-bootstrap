@@ -1,6 +1,7 @@
 var Vue = require('vue');
 
 Vue.component('b-row', require('./b-row.vue'));
+Vue.component('b-col-sm', require('./b-col-sm.vue'));
 Vue.component('b-select2', require('./b-select2.vue'));
 Vue.component('b-input-text', require('./b-input-text.vue'));
 Vue.component('b-input-number', require('./b-input-number.vue'));
@@ -19,3 +20,7 @@ Vue.component('b-modal-header', require('./b-modal-header.vue'));
 Vue.component('b-modal-body', require('./b-modal-body.vue'));
 Vue.component('b-modal-footer', require('./b-modal-footer.vue'));
 Vue.component('b-modal-save', require('./b-modal-save.vue'));
+Vue.component('b-panel', require('./b-panel.vue'));
+Vue.component('b-panel-header', require('./b-panel-header.vue'));
+Vue.component('b-panel-body', require('./b-panel-body.vue'));
+Vue.component('b-panel-footer', require('./b-panel-footer.vue'));

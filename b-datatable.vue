@@ -19,7 +19,7 @@
 </style>
 
 <template>
-	<b-col-sm :cols="colspan">
+	<div :class="colspanClass">
 		<table v-el:table class="table table-striped table-bordered table-hover" cellspacing="0" width="100%">
 			<thead>
 			<tr v-for="hr in headers">
@@ -27,7 +27,7 @@
 			</tr>
 			</thead>
 		</table>
-	</b-col-sm>
+	</div>
 	<slot></slot>
 </template>
 

@@ -10,7 +10,7 @@
 			</b-modal-body>
 			<b-modal-footer>
 				<b-button :caption="labelCancel" @click="onCancel"></b-button>
-				<b-button type="submit" style="primary" :caption="labelSave" @click="onSave"></b-button>
+				<b-button type="submit" context="primary" :caption="labelSave" @click="onSave"></b-button>
 			</b-modal-footer>
 		</b-modal>
 	</form>

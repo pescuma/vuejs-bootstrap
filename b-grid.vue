@@ -47,7 +47,7 @@
 </style>
 
 <template>
-	<b-col-sm :cols="colspan">
+	<div :class="colspanClass">
 		<table v-el:table :class="tableClass" cellspacing="0" width="100%">
 			<thead>
 				<tr v-for="hr in headers">
@@ -69,7 +69,7 @@
 			</ul>
 		</nav>
 		<slot></slot>
-	</b-col-sm>
+	</div>
 </template>
 
 <script>
