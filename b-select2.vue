@@ -43,15 +43,17 @@
 				return utils.createRenderFunction(this.key);
 			},
 			processedOptions: function() {
-				var result = [];
+				let result = [];
 				
-				this.options.forEach(o => {
+				let opts = (this.options || []);
+				for (var i = 0; i < opts.length; ++i) {
+					let o = opts[i];
 					result.push({
 						obj: o,
 						key: this.keyFunc(o),
 						render: this.renderFunc(o)
 					});
-				});
+				}
 				
 				return result;
 			}

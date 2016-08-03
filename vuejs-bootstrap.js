@@ -24,3 +24,4 @@ Vue.component('b-panel', require('./b-panel.vue'));
 Vue.component('b-panel-header', require('./b-panel-header.vue'));
 Vue.component('b-panel-body', require('./b-panel-body.vue'));
 Vue.component('b-panel-footer', require('./b-panel-footer.vue'));
+Vue.component('b-alert', require('./b-alert.vue'));
