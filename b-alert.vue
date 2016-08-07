@@ -1,5 +1,5 @@
 <template>
-	<div :class="classes" role="alert">
+	<div :class="[ classes, colspanClass ]" role="alert">
 		<button type="button" class="close" aria-label="Close" v-if="isDismissible" @click.prevent="onClose"><span aria-hidden="true">&times;</span></button>
 		<slot></slot>
 	</div>

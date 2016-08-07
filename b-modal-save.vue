@@ -38,8 +38,8 @@
 				this.$emit('cancel');
 			},
 			onSave: function () {
-				if (!this.$els.form.checkValidity())
-					return;
+//				if (!this.$els.form.checkValidity())
+//					return;
 			
 				this.$emit('save');
 			},

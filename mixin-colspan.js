@@ -21,13 +21,13 @@ module.exports = {
 	},
 	computed: {
 		colspanClass: function() {
-			var result = [];
+			var result = {};
 			
 			if (this.colspan)
-				result.push('col-sm-' + this.colspan);
+				result['col-sm-' + this.colspan] = true;
 			
 			if (this.coloffset)
-				result.push('col-sm-offset-' + this.coloffset);
+				result['col-sm-offset-' + this.coloffset] = true;
 			
 			return result;
 		}
