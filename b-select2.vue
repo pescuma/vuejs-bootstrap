@@ -68,7 +68,8 @@
 				allowClear: this.isAllowClear
 			});
 			
-			s.val(this.keyFunc(self.model)).trigger('change');
+			var model = this.keyFunc(self.model);
+			s.val(model).trigger('change');
 			
 			s.on('change', function() {
 				var candidate = $(this).val();
@@ -83,23 +84,34 @@
 					});
 				}
 			});
+			
+			this._attached = true;
 		},
 		detached: function() {
+			this._attached = false;
+			
 			$(this.$els.select)
 				.off()
 				.select2('destroy');
 		},
 		watch: {
 			'model': function(val, oldVal) {
+				if (!this._attached)
+					return;
+				
 				var s = $(this.$els.select);
 				
 				var current = s.val();
 				var model = this.keyFunc(val);
 				
-				if (!this._selectedEquals(model, current))
+				if (!this._selectedEquals(model, current)) {
 					s.val(model).trigger('change');
+				}
 			},
 			'options': function(val, oldVal) {
+				if (!this._attached)
+					return;
+				
 				var s = $(this.$els.select);
 				
 				s.trigger('change');
