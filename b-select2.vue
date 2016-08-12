@@ -23,9 +23,7 @@
 				type: Array,
 				required: true
 			},
-			model: {
-				twoWay: true
-			},
+			model: {},
 			render: {},
 			key: {}
 		},

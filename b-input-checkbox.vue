@@ -14,7 +14,6 @@
 		mixins: [require('./mixin-colspan.js'), require('./mixin-input.js')],
 		props: {
 			model: {
-				twoWay: true,
 				type: Boolean
 			}
 		}
