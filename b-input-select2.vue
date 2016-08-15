@@ -1,8 +1,11 @@
 <template>
-	<select v-el:select :id="id" :class="colspanClass" :multiple="isMultiple" :disabled="isDisabled" :readonly="isReadonly" :required="isRequired">
-		<option v-if="!isMultiple && isAllowClear"></option>
-		<option v-for="o in processedOptions" value="{{ o.key }}">{{{ o.render }}}</option>
-	</select>
+	<div class="form-group" :class="colspanClass">
+		<label :for="id">{{ label }}</label>
+		<select v-el:select :id="id" class="form-control" :multiple="isMultiple" :disabled="isDisabled" :readonly="isReadonly" :required="isRequired">
+			<option v-if="!isMultiple && isAllowClear"></option>
+			<option v-for="o in processedOptions" value="{{ o.key }}">{{{ o.render }}}</option>
+		</select>
+	</div>
 </template>
 
 <script>
@@ -10,7 +13,7 @@
 	var utils = require('./utils.js');
 
 	module.exports = {
-		tag: 'b-select2',
+		tag: 'b-input-select2',
 		mixins: [require('./mixin-colspan.js'), require('./mixin-input.js')],
 		props: {
 			multiple: {},
@@ -147,3 +150,4 @@
 	};
 
 </script>
+
