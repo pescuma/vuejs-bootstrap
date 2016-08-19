@@ -4,6 +4,7 @@ Vue.component('b-row', require('./b-row.vue'));
 Vue.component('b-col-sm', require('./b-col-sm.vue'));
 Vue.component('b-select2', require('./b-select2.vue'));
 Vue.component('b-input-text', require('./b-input-text.vue'));
+Vue.component('b-input-textarea', require('./b-input-textarea.vue'));
 Vue.component('b-input-number', require('./b-input-number.vue'));
 Vue.component('b-input-password', require('./b-input-password.vue'));
 Vue.component('b-input-checkbox', require('./b-input-checkbox.vue'));
