@@ -1,14 +1,16 @@
 <template>
-	<select v-el:select :id="id" :class="colspanClass" :multiple="isMultiple" :disabled="isDisabled" :readonly="isReadonly" :required="isRequired">
-		<option v-if="!isMultiple && isAllowClear"></option>
-		<option v-for="o in processedOptions" value="{{ o.key }}">{{{ o.render }}}</option>
-	</select>
+	<b-col-sm :colspan="colspan" :coloffset="coloffset">
+		<select v-el:select style="width: 100%" :id="id" :multiple="isMultiple" :disabled="isDisabled" :readonly="isReadonly" :required="isRequired">
+			<option v-if="!isMultiple && isAllowClear"></option>
+			<option v-for="o in processedOptions" value="{{ o.key }}">{{{ o.render }}}</option>
+		</select>
+	</b-col-sm>
 </template>
 
 <script>
-
+	
 	var utils = require('./utils.js');
-
+	
 	module.exports = {
 		tag: 'b-select2',
 		mixins: [require('./mixin-colspan.js'), require('./mixin-input.js')],
@@ -39,7 +41,7 @@
 			},
 			processedOptions: function() {
 				let result = [];
-
+				
 				let opts = (this.options || []);
 				for (var i = 0; i < opts.length; ++i) {
 					let o = opts[i];
@@ -49,42 +51,42 @@
 						render: this.renderFunc(o)
 					});
 				}
-
+				
 				return result;
 			}
 		},
 		attached: function() {
 			var self = this;
-
+			
 			var s = $(this.$els.select);
-
+			
 			s.select2({
 				placeholder: this.emptyText,
 				allowClear: this.isAllowClear
 			});
-
+			
 			var model = this.keyFunc(self.model);
 			s.val(model).trigger('change');
-
+			
 			s.on('change', function() {
 				var candidate = $(this).val();
 				var model = self.keyFunc(self.model);
-
+				
 				if (!self._selectedEquals(model, candidate)) {
 					model = self._fixSelected(candidate);
-
+					
 					self.processedOptions.forEach(o => {
 						if (o.key === model)
 							self.model = o.obj;
 					});
 				}
 			});
-
+			
 			this._attached = true;
 		},
 		detached: function() {
 			this._attached = false;
-
+			
 			$(this.$els.select)
 				.off()
 				.select2('destroy');
@@ -93,12 +95,12 @@
 			'model': function(val, oldVal) {
 				if (!this._attached)
 					return;
-
+				
 				var s = $(this.$els.select);
-
+				
 				var current = s.val();
 				var model = this.keyFunc(val);
-
+				
 				if (!this._selectedEquals(model, current)) {
 					s.val(model).trigger('change');
 				}
@@ -106,9 +108,9 @@
 			'options': function(val, oldVal) {
 				if (!this._attached)
 					return;
-
+				
 				var s = $(this.$els.select);
-
+				
 				s.trigger('change');
 			},
 		},
@@ -122,23 +124,23 @@
 						if (!s)
 							return null;
 				}
-
+				
 				return s;
 			},
 			_selectedEquals: function(a, b) {
 				a = this._fixSelected(a);
 				b = this._fixSelected(b);
-
+				
 				if (this.isMultiple) {
 					if (a.length != b.length)
 						return false;
-
+					
 					for (var i = 0; i < a.length; ++i)
 						if (a[i] !== b[i])
 							return false;
-
+					
 					return true;
-
+					
 				} else {
 					return a == b;
 				}

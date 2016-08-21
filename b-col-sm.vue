@@ -1,5 +1,5 @@
 <template>
-	<div class="col-sm-{{ cols }}" v-if="cols">
+	<div :class="colspanClass" v-if="colspan || coloffset">
 		<slot></slot>
 	</div>
 	<slot v-else></slot>
@@ -9,7 +9,7 @@
 
 	module.exports = {
 		tag: 'b-col-sm',
-		props: ['cols']
+		mixins: [require('./mixin-colspan.js')],
 	};
 
 </script>
