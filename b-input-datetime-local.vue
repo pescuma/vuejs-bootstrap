@@ -7,7 +7,9 @@
 </template>
 
 <script>
-	
+
+	var moment = require('moment');
+
 	module.exports = {
 		tag: 'b-input-text',
 		mixins: [require('./mixin-colspan.js'), require('./mixin-input.js')],
@@ -26,13 +28,15 @@
 		watch: {
 			model: function() {
 				var value = this.toValue(this.model);
-				if (value !== this.value)
+				if (value !== this.value) {
 					this.value = value;
+				}
 			},
 			value: function() {
 				var model = this.toModel(this.value);
-				if (model !== this.model)
+				if (model !== this.model) {
 					this.model = model;
+				}
 			}
 		},
 		methods: {
@@ -40,14 +44,14 @@
 				if (model === '' || model === null || model === undefined) {
 					return '';
 				} else {
-					return new Date(model).toJSON().slice(0, 16);
+					return moment(model).format('YYYY-MM-DDTHH:mm');
 				}
 			},
 			toModel: function(value) {
 				if (value === '' || value === null || value === undefined) {
 					return null;
 				} else {
-					return new Date(value);
+					return moment(value).toDate();
 				}
 			}
 		}
