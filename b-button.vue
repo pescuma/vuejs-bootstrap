@@ -1,8 +1,10 @@
 <template>
-	<button :type="type" id="id" :class="classes" :class="colspanClass" :disabled="isDisabled">
-		{{ caption }}
-		<slot></slot>
-	</button>
+	<span :class="colspanClass">
+		<button :type="type" id="id" :class="classes" :disabled="isDisabled">
+			{{ caption }}
+			<slot></slot>
+		</button>
+	</span>
 </template>
 
 <script>
@@ -18,7 +20,7 @@
 			},
 		},
 		computed: {
-			isDisabled: function () {
+			isDisabled: function() {
 				return !utils.isTrue(this.enabled);
 			},
 		},

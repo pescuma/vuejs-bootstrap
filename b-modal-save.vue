@@ -1,16 +1,19 @@
+<style scoped>
+</style>
+
 <template>
 	<form v-el:form>
 		<b-modal>
 			<b-modal-header>
-				<button type="button" class="close" aria-hidden="true" @click="onCancel">&times;</button>
+				<button type="button" class="close" aria-hidden="true" @click.prevent.stop="onCancel">&times;</button>
 				<h4 class="modal-title">{{ title }}</h4>
 			</b-modal-header>
 			<b-modal-body>
 				<slot></slot>
 			</b-modal-body>
 			<b-modal-footer>
-				<b-button :caption="labelCancel" @click="onCancel"></b-button>
-				<b-button type="submit" context="primary" :caption="labelSave" @click.prevent="onSave"></b-button>
+				<b-button :caption="labelCancel" @click.prevent.stop="onCancel"></b-button>
+				<b-button type="submit" context="primary" :caption="labelSave" @click.prevent.stop="onSave"></b-button>
 			</b-modal-footer>
 		</b-modal>
 	</form>
@@ -23,24 +26,24 @@
 		props: {
 			title: {},
 			labelCancel: {
-				default: function () {
+				default: function() {
 					return 'Cancel';
 				}
 			},
 			labelSave: {
-				default: function () {
+				default: function() {
 					return 'Save';
 				}
 			},
 		},
 		methods: {
-			onCancel: function () {
+			onCancel: function() {
 				this.$emit('cancel');
 			},
-			onSave: function () {
+			onSave: function() {
 //				if (!this.$els.form.checkValidity())
 //					return;
-			
+
 				this.$emit('save');
 			},
 		},
@@ -54,5 +57,3 @@
 
 </script>
 
-<style scoped>
-</style>
