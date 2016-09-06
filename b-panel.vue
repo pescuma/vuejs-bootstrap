@@ -12,7 +12,7 @@
 <script>
 	
 	module.exports = {
-		tag: 'b-panel',
+		name: 'b-panel',
 		mixins: [require('./mixin-colspan.js')],
 		props: ['title']
 	};

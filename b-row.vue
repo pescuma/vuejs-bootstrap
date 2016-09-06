@@ -7,7 +7,7 @@
 <script>
 
 	module.exports = {
-		tag: 'b-row'
+		name: 'b-row'
 	};
 
 </script>

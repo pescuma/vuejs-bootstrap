@@ -12,7 +12,7 @@
 	var utils = require('./utils.js');
 
 	module.exports = {
-		tag: 'b-button',
+		name: 'b-button',
 		mixins: [require('./mixin-colspan.js'), require('./mixin-button.js')],
 		props: {
 			enabled: {

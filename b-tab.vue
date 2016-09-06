@@ -7,7 +7,7 @@
 <script>
 
 	module.exports = {
-		tag: 'b-tab',
+		name: 'b-tab',
 		props: {
 			title: {
 				type: String,

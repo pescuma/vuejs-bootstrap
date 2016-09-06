@@ -12,7 +12,7 @@
 	var utils = require('./utils.js');
 	
 	module.exports = {
-		tag: 'b-select2',
+		name: 'b-select2',
 		mixins: [require('./mixin-colspan.js'), require('./mixin-input.js')],
 		props: {
 			multiple: {},

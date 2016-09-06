@@ -7,7 +7,7 @@
 <script>
 	
 	module.exports = {
-		tag: 'b-panel-footer'
+		name: 'b-panel-footer'
 	};
 
 </script>

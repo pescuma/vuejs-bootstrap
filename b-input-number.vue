@@ -9,7 +9,7 @@
 <script>
 	
 	module.exports = {
-		tag: 'b-input-number',
+		name: 'b-input-number',
 		mixins: [require('./mixin-colspan.js'), require('./mixin-input.js')],
 		props: {
 			emptyText: String,

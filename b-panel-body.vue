@@ -7,7 +7,7 @@
 <script>
 	
 	module.exports = {
-		tag: 'b-panel-body'
+		name: 'b-panel-body'
 	};
 
 </script>

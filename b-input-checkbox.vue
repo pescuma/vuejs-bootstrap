@@ -10,7 +10,7 @@
 <script>
 
 	module.exports = {
-		tag: 'b-input-checkbox',
+		name: 'b-input-checkbox',
 		mixins: [require('./mixin-colspan.js'), require('./mixin-input.js')],
 		props: {
 			model: {

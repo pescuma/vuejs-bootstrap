@@ -37,7 +37,7 @@
 	var Type = require('type-of-is');
 
 	module.exports = {
-		tag: 'b-datatable',
+		name: 'b-datatable',
 		mixins: [require('./mixin-colspan.js'), require('./mixin-columns.js')],
 		props: {
 			model: Array

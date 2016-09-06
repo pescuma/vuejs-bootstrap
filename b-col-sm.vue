@@ -8,7 +8,7 @@
 <script>
 
 	module.exports = {
-		tag: 'b-col-sm',
+		name: 'b-col-sm',
 		mixins: [require('./mixin-colspan.js')],
 	};
 

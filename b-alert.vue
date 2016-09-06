@@ -10,7 +10,7 @@
 	var utils = require('./utils.js');
 	
 	module.exports = {
-		tag: 'b-button',
+		name: 'b-button',
 		mixins: [require('./mixin-colspan.js')],
 		props: {
 			context: {

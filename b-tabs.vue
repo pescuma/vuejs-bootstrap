@@ -28,11 +28,11 @@
 			for (var i = 0; i < this.$children.length; ++i) {
 				var child = this.$children[i];
 
-				if (child.$options.tag != 'b-tab')
+				if (child.$options.name != 'b-tab')
 					continue;
 
 				child._index = this.tabs.length;
-				this.tabs.push(child.$data);
+				this.tabs.push(child);
 
 				child.$watch('active', function (active) {
 					if (!active)

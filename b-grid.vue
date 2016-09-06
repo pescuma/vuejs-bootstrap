@@ -93,7 +93,7 @@
 	}
 	
 	module.exports = {
-		tag: 'b-grid',
+		name: 'b-grid',
 		mixins: [require('./mixin-colspan.js'), require('./mixin-columns.js')],
 		props: {
 			model: Array,

@@ -10,7 +10,7 @@
 <script>
 	
 	module.exports = {
-		tag: 'b-input-display',
+		name: 'b-input-display',
 		mixins: [require('./mixin-colspan.js'), require('./mixin-input.js')],
 	};
 

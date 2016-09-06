@@ -7,7 +7,7 @@
 <script>
 	
 	module.exports = {
-		tag: 'b-modal-body'
+		name: 'b-modal-body'
 	};
 
 </script>

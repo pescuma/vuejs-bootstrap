@@ -22,7 +22,7 @@
 <script>
 
 	module.exports = {
-		tag: 'b-modal-save',
+		name: 'b-modal-save',
 		props: {
 			title: {},
 			labelCancel: {

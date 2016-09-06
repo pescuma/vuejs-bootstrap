@@ -11,7 +11,7 @@
 <script>
 
 	module.exports = {
-		tag: 'b-input-button',
+		name: 'b-input-button',
 		mixins: [require('./mixin-colspan.js'), require('./mixin-input.js'), require('./mixin-button')],
 	};
 

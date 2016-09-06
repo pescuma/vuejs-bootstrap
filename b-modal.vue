@@ -31,7 +31,7 @@
 <script>
 
 	module.exports = {
-		tag: 'b-modal',
+		name: 'b-modal',
 		props: {
 			class: {},
 			size: {

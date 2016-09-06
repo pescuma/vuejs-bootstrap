@@ -7,7 +7,7 @@
 <script>
 	
 	module.exports = {
-		tag: 'b-modal-footer'
+		name: 'b-modal-footer'
 	};
 
 </script>
