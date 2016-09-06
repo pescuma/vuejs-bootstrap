@@ -1,6 +1,6 @@
 <template>
 	<div class="form-group" :class="colspanClass">
-		<label :for="id">{{ label || '&nbsp;' }}</label>
+		<label :for="id">{{ label }}</label>
 		<input type="number" class="form-control" :id="id" :placeholder="emptyText" :disabled="isDisabled" :readonly="isReadonly" :required="isRequired"
 		       :min="min" :max="max" :step="step" v-model="value">
 	</div>

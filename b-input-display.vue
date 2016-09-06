@@ -1,6 +1,6 @@
 <template>
 	<div class="form-group" :class="colspanClass">
-		<label>{{ label || '&nbsp;' }}</label>
+		<label>{{ label }}</label>
 		<p :class="{ 'form-control-static': true, 'form-control-static-disabled': isDisabled }">
 			<slot></slot>
 		</p>

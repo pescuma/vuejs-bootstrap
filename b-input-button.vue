@@ -1,6 +1,6 @@
 <template>
 	<div class="form-group" :class="colspanClass">
-		<label :for="id">{{ label || '&nbsp;' }}</label>
+		<label :for="id">{{ label }}</label>
 		<button :type="type" id="id" :class="classes" :disabled="isDisabled">
 			{{ caption }}
 			<slot></slot>
