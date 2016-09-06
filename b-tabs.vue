@@ -17,12 +17,17 @@
 	module.exports = {
 		tag: 'b-tabs',
 		mixins: [require('./mixin-colspan.js')],
-		data: function () {
+		props: {
+			activeTab: {
+				default: 0
+			}
+		},
+		data: function() {
 			return {
 				tabs: []
 			};
 		},
-		ready: function () {
+		ready: function() {
 			var self = this;
 
 			for (var i = 0; i < this.$children.length; ++i) {
@@ -34,7 +39,7 @@
 				child._index = this.tabs.length;
 				this.tabs.push(child);
 
-				child.$watch('active', function (active) {
+				child.$watch('active', function(active) {
 					if (!active)
 						return;
 
@@ -44,11 +49,22 @@
 
 						self.tabs[j].active = false;
 					}
+
+					self.activeTab = this._index;
 				});
 			}
 
-			if (this.tabs.length)
-				this.tabs[0].active = true;
+			this.tabs[this.activeTab].active = true;
+		},
+		watch: {
+			'activeTab': function(val, oldVal) {
+				oldVal = oldVal || 0;
+				val = parseInt(val) || 0;
+				val = Math.min(Math.max(val, 0), this.tabs.length);
+
+				for (var j = 0; j < this.tabs.length; ++j)
+					this.tabs[j].active = (j === val);
+			}
 		}
 	};
 
