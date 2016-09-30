@@ -6,7 +6,7 @@ module.exports = {
 	props: {
 		id: {
 			type: String,
-			default: function () {
+			default: function() {
 				return 'b-' + _nexId++;
 			}
 		},
@@ -21,18 +21,24 @@ module.exports = {
 		},
 		required: {
 			default: false
+		},
+		noLabel: {
+			default: false
 		}
 	},
 	computed: {
-		isDisabled: function () {
+		isDisabled: function() {
 			return !utils.isTrue(this.enabled);
 		},
-		isReadonly: function () {
+		isReadonly: function() {
 			return utils.isTrue(this.readonly);
 		},
-		isRequired: function () {
+		isRequired: function() {
 			return !this.isDisabled && !this.isReadonly && utils.isTrue(this.required);
-		}
+		},
+		showLabel: function() {
+			return !utils.isTrue(this.noLabel);
+		},
 	}
 };
 

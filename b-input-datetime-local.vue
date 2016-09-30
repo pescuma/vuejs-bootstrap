@@ -1,6 +1,6 @@
 <template>
 	<div class="form-group" :class="colspanClass">
-		<label :for="id">{{ label }}</label>
+		<label :for="id" v-if="showLabel">{{ label }}</label>
 		<input type="datetime-local" class="form-control" :id="id" :placeholder="emptyText" :disabled="isDisabled" :readonly="isReadonly" :required="isRequired"
 		       :min="min" :max="max" :step="step" v-model="value">
 	</div>

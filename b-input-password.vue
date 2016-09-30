@@ -1,6 +1,6 @@
 <template>
 	<div class="form-group" :class="colspanClass">
-		<label :for="id">{{ label }}</label>
+		<label :for="id" v-if="showLabel">{{ label }}</label>
 		<input type="password" class="form-control" :id="id" :placeholder="emptyText" :disabled="isDisabled" :readonly="isReadonly" :required="isRequired"
 		       :maxlength="maxlength" v-model="model">
 	</div>

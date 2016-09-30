@@ -1,6 +1,6 @@
 <template>
 	<div class="form-group" :class="colspanClass">
-		<label :for="id">{{ label }}</label>
+		<label :for="id" v-if="showLabel">{{ label }}</label>
 		<button :type="type" id="id" :class="classes" :disabled="isDisabled">
 			{{ caption }}
 			<slot></slot>
