@@ -1,13 +1,5 @@
 <style scoped>
 
-	.fullscreen {
-		position: fixed;
-		width: 100%;
-		height: 100%;
-		left: 0;
-		top: 0;
-	}
-
 	.modal.in {
 		display: block;
 	}
@@ -15,7 +7,7 @@
 </style>
 
 <template>
-	<div class="modal-open fullscreen">
+	<div class="modal-open">
 		<div class="modal-backdrop in"></div>
 
 		<div class="modal in" role="dialog">
