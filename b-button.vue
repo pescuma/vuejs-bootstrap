@@ -1,6 +1,6 @@
 <template>
 	<span :class="colspanClass">
-		<button :type="type" id="id" :class="classes" :disabled="isDisabled">
+		<button :type="type" id="id" :class="classes" :style="style" :disabled="isDisabled">
 			{{ caption }}
 			<slot></slot>
 		</button>
@@ -18,6 +18,7 @@
 			enabled: {
 				default: true
 			},
+			style: {}
 		},
 		computed: {
 			isDisabled: function() {
