@@ -55,6 +55,9 @@
 		},
 		ready: function() {
 			this.rebuild();
+		},
+		beforeDestroy: function() {
+			this.clear();
 		}
 	};
 

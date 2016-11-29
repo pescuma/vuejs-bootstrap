@@ -51,17 +51,12 @@ module.exports = {
 	},
 	watch: {
 		'model': function(val, oldVal) {
-			console.log('model change', val, oldVal);
-			
 			this._updateFromModel();
 		},
 		'key': function(val, oldVal) {
-			console.log('key change', val, oldVal);
-			
 			this._updateFromModel();
 		},
 		'selectedKey': function(val, oldVal) {
-			console.log('selectedKey change', val, oldVal);
 			this._updateFromSelect();
 		},
 	},
@@ -69,17 +64,12 @@ module.exports = {
 		_updateFromModel: function() {
 			var model = this.keyFunc(this.model);
 			
-			console.log('_updateFromModel', model, this.selectedKey, this._selectedEquals(model, this.selectedKey));
-			
 			if (!this._selectedEquals(model, this.selectedKey)) {
-				console.log('setting selectedKey to', model);
 				this.selectedKey = model;
 			}
 		},
 		_updateFromSelect: function() {
 			var model = this.keyFunc(this.model);
-			
-			console.log('_updateFromSelect', model, this.selectedKey, this._selectedEquals(model, this.selectedKey));
 			
 			if (!this._selectedEquals(model, this.selectedKey)) {
 				model = this._fixSelected(this.selectedKey);
@@ -90,7 +80,6 @@ module.exports = {
 						newVal = o.obj;
 				});
 				
-				console.log('setting model to', newVal);
 				this.model = newVal;
 			}
 		},
