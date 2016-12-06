@@ -1,5 +1,5 @@
 <template>
-	<span :class="colspanClass">
+	<span :class="colspanClass" @click.capture="onClick($event)">
 		<button v-el:btn :type="type" id="id" :class="classes" :style="style" :disabled="isDisabled">
 			{{ caption }}
 			<slot></slot>
@@ -28,10 +28,19 @@
 				return !utils.isTrue(this.enabled);
 			},
 		},
+		methods: {
+			onClick: function(e) {
+				if (this.isDisabled) {
+					e.preventDefault();
+					e.stopPropagation();
+				}
+			}
+		},
 		attached: function() {
 			if (this.tooltip) {
 				$(this.$els.btn).tooltip({
-					title: this.tooltip
+					title: this.tooltip,
+					placement: 'bottom'
 				});
 			}
 		}
