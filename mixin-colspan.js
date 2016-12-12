@@ -24,10 +24,10 @@ module.exports = {
 			var result = {};
 			
 			if (this.colspan)
-				result['col-sm-' + this.colspan] = true;
+				result['col-md-' + this.colspan] = true;
 			
 			if (this.coloffset)
-				result['col-sm-offset-' + this.coloffset] = true;
+				result['col-md-offset-' + this.coloffset] = true;
 			
 			return result;
 		}
